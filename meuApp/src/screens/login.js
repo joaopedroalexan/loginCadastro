@@ -22,6 +22,7 @@ export default function Login() {
           console.log(response.data.message);
         },
         (error) => {
+          Alert.alert("Erro,", error.response.data.error);
           console.log(error.message);
         }
       );

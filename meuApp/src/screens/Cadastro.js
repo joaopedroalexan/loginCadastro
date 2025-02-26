@@ -24,6 +24,7 @@ export default function cadastro() {
         console.log(response.data.message);
       },
       (error) => {
+        Alert.alert("Error", error.response.data.error)
         console.log(error.message);
       }
     );
