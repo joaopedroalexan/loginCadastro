@@ -77,7 +77,7 @@ export default function cadastro() {
         }}
       />
       <TouchableOpacity onPress={handleCadastro}>
-        <Text>Clique Aqui Para Login-in</Text>
+        <Text>Clique Aqui Para cadastro</Text>
       </TouchableOpacity>
     </View>
   );
