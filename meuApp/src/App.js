@@ -1,13 +1,27 @@
 import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import Cadastro from "./screens/Cadastro";
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Cadastro></Cadastro>
-    </View>
+import{ NavigationContainer } from "@react-navigation/native"
+import { createStackNavigator } from "@react-navigation/stack"
+import login from "./screens/login";
+const Stack = createStackNavigator();
+export default function App(){
+  return(
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="login" component={login}/>
+        <Stack.Screen name="Cadastro" component={Cadastro}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+
+// export default function App() {
+//   return (
+//     <View style={styles.container}>
+//       <Cadastro></Cadastro>
+//     </View>
+//   );
+// }
 
 const styles = StyleSheet.create({
   container: {

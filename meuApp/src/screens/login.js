@@ -6,10 +6,11 @@ import {
   TouchableOpacity,
   Alert,
   StyleSheet,
+  Button
 } from "react-native";
 import api from "../axios/axios";
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -52,6 +53,7 @@ export default function Login() {
        onPress={handleLogin}>
         <Text>Clique Aqui Para Login-in</Text>
       </TouchableOpacity>
+      <Button title="Cadastro" onPress={()=>navigation.navigate("Cadastro")}/>
     </View>
   );
 }
