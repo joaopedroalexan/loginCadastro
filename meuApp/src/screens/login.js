@@ -17,17 +17,14 @@ export default function Login({ navigation }) {
   });
 
   async function handleLogin() {
-    await api.postLogin(user).then(
-        (response) => {
-            Alert.alert('OK',response.data.message);
-          console.log(response.data.message);
-        },
-        (error) => {
-          Alert.alert("Erro,", error.response.data.error);
-          console.log(error.message);
-        }
-      );
+    try {
+      const response = await api.postLogin(user);
+      navigation.navigate("Home");
+    } catch (error) {
+      Alert.alert("Erro", error.response.data.error)
+      console.log(error.message);
     }
+  }
 
   return (
     <View style={styles.container}>
@@ -49,11 +46,10 @@ export default function Login({ navigation }) {
           setUser({ ...user, password: value });
         }}
       />
-      <TouchableOpacity
-       onPress={handleLogin}>
-        <Text>Clique Aqui Para Login-in</Text>
+      <Button title="Login" onPress={handleLogin}/>
+      <TouchableOpacity onPress={()=>navigation.navigate('Cadastro')}>
+        <Text>Cadastre-se</Text>
       </TouchableOpacity>
-      <Button title="Cadastro" onPress={()=>navigation.navigate("Cadastro")}/>
     </View>
   );
 }

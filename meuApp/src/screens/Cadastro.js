@@ -19,16 +19,13 @@ export default function cadastro({ navigation }) {
     data_nascimento: "",
   });
   async function handleCadastro() {
-    await api.postCadastro(user).then(
-      (response) => {
-        Alert.alert("OK", response.data.message);
-        console.log(response.data.message);
-      },
-      (error) => {
-        Alert.alert("Error", error.response.data.error)
-        console.log(error.message);
-      }
-    );
+    try {
+      const response = await api.postCadastro(user);
+      navigation.navigate("Home");
+    } catch (error) {
+      Alert.alert("Erro", error.response.data.error)
+      console.log(error.message);
+    }
   }
 
   return (
@@ -78,10 +75,10 @@ export default function cadastro({ navigation }) {
           setUser({ ...user, data_nascimento: value });
         }}
       />
-      <TouchableOpacity onPress={handleCadastro}>
-        <Text>Clique Aqui Para cadastro</Text>
-      </TouchableOpacity>
-      <Button title="voltar para login" onPress={()=>navigation.navigate("login")}/>
+      <Button title="cadastre-se" onPress={handleCadastro}/>
+      <TouchableOpacity onPress={()=>navigation.navigate('Login')}>
+              <Text>Tem uma conta? faça login</Text>
+          </TouchableOpacity>
     </View>
   );
 }
