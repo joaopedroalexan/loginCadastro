@@ -9,11 +9,13 @@ import {
   Button
 } from "react-native";
 import api from "../axios/axios";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function Login({ navigation }) {
   const [user, setUser] = useState({
     email: "",
     password: "",
+    Showpassword:false
   });
 
   async function handleLogin() {
@@ -30,22 +32,25 @@ export default function Login({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.titulo}> Faça login-in:</Text>
       <TextInput
-        style={styles.inputi}
+        style={styles.emailInput}
         placeholder="Digite seu E-mail aqui:"
         value={user.email}
         onChangeText={(value) => {
           setUser({ ...user, email: value });
         }}
       />
+      <View style={styles.Showpass}>
       <TextInput
-        style={styles.inputi}
+        style={styles.passwordInput}
         placeholder="Digite sua senha aqui:"
-        secureTextEntry={true}
+        secureTextEntry={!user.Showpassword}
         value={user.password}
         onChangeText={(value) => {
           setUser({ ...user, password: value });
         }}
       />
+      <TouchableOpacity onPress={()=> setUser({...user,Showpassword: !user.Showpassword })}><Ionicons name={user.Showpassword?"eye-off":"eye"} size={24} color="gray" /></TouchableOpacity>
+      </View>
       <Button title="Login" onPress={handleLogin}/>
       <TouchableOpacity onPress={()=>navigation.navigate('Cadastro')}>
         <Text>Cadastre-se</Text>
@@ -64,10 +69,26 @@ const styles = StyleSheet.create({
   },
   texto: {
     fontWeight: "bold",
+
     fontSize: 30,
   },
   titulo: {
     fontWeight: "bold",
     fontSize: 40,
   },
+  Showpass: {
+    flexDirection:"row",
+    alignItems:"center",
+    width:"100%",
+    borderBottomWidth:1,
+    paddingRight:10,
+  },
+  emailInput: {
+    borderBottomWidth:1,
+    width:"100%",
+  },
+  passwordInput: {
+    flex:1,
+    height:40,
+  }
 });
