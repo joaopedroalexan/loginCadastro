@@ -9,8 +9,10 @@ import {
   Button
 } from "react-native";
 import api from "../axios/axios";
+import { useNavigation } from "@react-navigation/native";
 
 export default function org() {
+  const navigation = useNavigation()
     const [organizador, setOrganizador] = useState({
         nome: "",
         email: "",

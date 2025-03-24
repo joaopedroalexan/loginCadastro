@@ -9,8 +9,10 @@ import {
   Button
 } from "react-native";
 import api from "../axios/axios";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ingresso() {
+  const navigation = useNavigation()
     const [ingresso, setIng] = useState({
         preco:"", 
         tipo:"", 
