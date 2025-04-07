@@ -32,7 +32,7 @@ export default function cadastro() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}> Faça sign-up-up:</Text>
+      <Text style={styles.titulo}> Faça sign-up</Text>
       <TextInput
         style={styles.inputi}
         placeholder="Digite seu E-mail aqui:"

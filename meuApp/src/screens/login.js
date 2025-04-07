@@ -32,7 +32,7 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}> Faça login-in:</Text>
+      <Text style={styles.titulo}> Faça loginho:</Text>
       <TextInput
         style={styles.emailInput}
         placeholder="Digite seu E-mail aqui:"
