@@ -3,7 +3,7 @@ import organizador from '../screens/OrganizadorScreen';
 
 
 const api = axios.create({
-    baseURL:"http://10.89.240.67:5000/api/v1/",
+    baseURL:"http://10.89.240.91:5000/api/v1/",
     headers:{
         'accept':"application/json"
     }
@@ -15,7 +15,8 @@ const sheets = {
     postIngresso:(ingresso)=>api.post('/ingresso',ingresso),
     postOrganizador:(organizador)=>api.post('/organizador', organizador),
     postEvents:(evento)=>api.post('/evento', evento),
-    getEventos: () => api.get("evento")
+    getEventos: () => api.get("evento", evento),
+    getIngressosPorEvento: (idEvento)=> api.get(`ingresso/evento/${idEvento}`)
 }
 
 export default sheets

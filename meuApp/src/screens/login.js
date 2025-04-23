@@ -23,7 +23,7 @@ export default function Login() {
   async function handleLogin() {
     try {
       const response = await api.postLogin(user);
-      navigation.navigate("Home");
+      navigation.navigate("EventosScreen");
     } catch (error) {
       Alert.alert("Erro", error.response.data.error)
       console.log(error.message);
