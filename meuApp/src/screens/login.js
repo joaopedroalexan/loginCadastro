@@ -6,28 +6,38 @@ import {
   TouchableOpacity,
   Alert,
   StyleSheet,
-  Button
+  Button,
 } from "react-native";
 import api from "../axios/axios";
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
+import * as SecureStore from 'expo-secure-store';
 
 export default function Login() {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const [user, setUser] = useState({
     email: "",
     password: "",
-    Showpassword:false
+    Showpassword: false,
   });
 
+  async function saveToken(token) {
+    await SecureStore.setItemAsync("token", token);
+    console.log(token);
+  }
+
   async function handleLogin() {
-    try {
-      const response = await api.postLogin(user);
-      navigation.navigate("EventosScreen");
-    } catch (error) {
-      Alert.alert("Erro", error.response.data.error)
-      console.log(error.message);
-    }
+    await api.postLogin(user).then(
+      (response) => {
+        console.log(response.data.message);
+        Alert.alert(response.data.message);
+        saveToken(response.data.token);
+        navigation.navigate("EventosScreen");
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   return (
@@ -42,19 +52,27 @@ export default function Login() {
         }}
       />
       <View style={styles.Showpass}>
-      <TextInput
-        style={styles.passwordInput}
-        placeholder="Digite sua senha aqui:"
-        secureTextEntry={!user.Showpassword}
-        value={user.password}
-        onChangeText={(value) => {
-          setUser({ ...user, password: value });
-        }}
-      />
-      <TouchableOpacity onPress={()=> setUser({...user,Showpassword: !user.Showpassword })}><Ionicons name={user.Showpassword?"eye-off":"eye"} size={24} color="gray" /></TouchableOpacity>
+        <TextInput
+          style={styles.passwordInput}
+          placeholder="Digite sua senha aqui:"
+          secureTextEntry={!user.Showpassword}
+          value={user.password}
+          onChangeText={(value) => {
+            setUser({ ...user, password: value });
+          }}
+        />
+        <TouchableOpacity
+          onPress={() => setUser({ ...user, Showpassword: !user.Showpassword })}
+        >
+          <Ionicons
+            name={user.Showpassword ? "eye-off" : "eye"}
+            size={24}
+            color="gray"
+          />
+        </TouchableOpacity>
       </View>
-      <Button title="Login" onPress={handleLogin}/>
-      <TouchableOpacity onPress={()=>navigation.navigate('Cadastro')}>
+      <Button title="Login" onPress={handleLogin} />
+      <TouchableOpacity onPress={() => navigation.navigate("Cadastro")}>
         <Text>Cadastre-se</Text>
       </TouchableOpacity>
     </View>
@@ -79,18 +97,18 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   Showpass: {
-    flexDirection:"row",
-    alignItems:"center",
-    width:"100%",
-    borderBottomWidth:1,
-    paddingRight:10,
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    borderBottomWidth: 1,
+    paddingRight: 10,
   },
   emailInput: {
-    borderBottomWidth:1,
-    width:"100%",
+    borderBottomWidth: 1,
+    width: "100%",
   },
   passwordInput: {
-    flex:1,
-    height:40,
-  }
+    flex: 1,
+    height: 40,
+  },
 });

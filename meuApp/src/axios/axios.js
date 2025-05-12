@@ -3,7 +3,7 @@ import organizador from '../screens/OrganizadorScreen';
 
 
 const api = axios.create({
-    baseURL:"http://10.89.240.91:5000/api/v1/",
+    baseURL:"http://10.89.240.75:5000/api/v1/",
     headers:{
         'accept':"application/json"
     }
